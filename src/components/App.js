@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import SearchBar from '../containers/search_bar';
+import TweetsList from '../containers/tweets_table';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello!</h1>
+        <SearchBar />
+        <TweetsList />
       </div>
     );
   }
 }
 
-export default App;
