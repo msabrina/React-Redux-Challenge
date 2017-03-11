@@ -1,7 +1,17 @@
+// {
+//   "presets" : ["es2015", "react"],
+//   "compact" : true,
+//   "plugins": [
+//     ["transform-strict-mode", {
+//       "strict": true
+//     }]
+//   ]
+// }
 {
   "presets" : ["es2015", "react"],
   "compact" : true,
   "plugins": [
+    "add-module-exports",
     ["transform-strict-mode", {
       "strict": true
     }]

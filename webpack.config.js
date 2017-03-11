@@ -1,6 +1,8 @@
 'use strict'
 const webpack           = require('webpack');
 const path              = require('path');
+const debug             = process.env.NODE_ENV !== "production";
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -31,7 +33,13 @@ module.exports = {
     }),
     new ExtractTextPlugin('/css/[name].css', {
       allChunks: true
-    })
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+    new webpack.DefinePlugin({'process.env': {NODE_ENV: JSON.stringify('production')}
+    }),
+    // new webpack.optimize.UglifyJsPlugin()
   ],
 
   module : {
@@ -40,6 +48,15 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+      },
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015'],
+          plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+        }
       },
       {
         test: /\.svg$/,
@@ -60,7 +77,15 @@ module.exports = {
       {
         test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader?name=/fonts/[name].[ext]'
-      }
+      },
+      {
+        test: /\.json?$/,
+        loader: 'json'
+      },
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=100000&name=[name].[ext]'
+      },
     ]
   }
 };

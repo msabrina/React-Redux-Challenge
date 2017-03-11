@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchTweets } from '../actions/index';
+// import axios from 'axios';
+
 
 class SearchBar extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class SearchBar extends Component {
 
 // call action creators
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchTweets}, dispatch);
+  return bindActionCreators({ fetchTweets }, dispatch);
 }
 // export connect version of component SearchBar
-export default connect(null, mapDispatchToProps) (SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);

@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class TweetsTable extends Component {
-  renderTweets(twitterData) {
-    const name = twitterData.user_name;
-    const tweet = twitterData.tweet_text;
+  renderTweets(tweets) {
+    const name = tweets.user_name;
+    const tweet = tweets.tweet_text;
+    console.log('tweets',tweets);
 
     return (
-      <tr key={name}>
-        <th text={tweet}></th>
-      </tr>
+      tweets.map((tweet, i) =>
+        <tr key={i}>
+          <th text={tweet}>{tweet.name}</th>
+          <th text={tweet}>{tweet.tweet}</th>
+        </tr>
+      )
     );
   }
 
@@ -18,7 +22,7 @@ class TweetsTable extends Component {
     return (
       <table className="table table-hover">
         <tbody>
-          {this.props.tweets.map(this.renderTweets)}
+          {this.renderTweets()}
         </tbody>
       </table>
     );
